@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "./Header";
+import { validateFormData } from "../utils/validate";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
+  const [erroMessage, setErrorMessage] = useState(null);
+
+  const emailRef = useRef(null);
+  const passRef = useRef(null);
 
   const toggleSignInform = () => {
     setIsSignInForm(!isSignInForm);
+  };
+
+  const handleClick = () => {
+    //validate form data
+    const validationMessage = validateFormData(
+      emailRef.current.value,
+      passRef.current.value
+    );
+    setErrorMessage(validationMessage);
+
+    //proceed to signin/signup
   };
 
   return (
@@ -17,7 +33,10 @@ const Login = () => {
           alt="login-background"
         />
       </div>
-      <form className="bg-black absolute w-4/12 p-12 mt-36 mx-auto left-0 right-0 text-white rounded-lg bg-opacity-80">
+      <form
+        onClick={(e) => e.preventDefault()}
+        className="bg-black absolute w-4/12 p-12 mt-28 mx-auto left-0 right-0 text-white rounded-lg bg-opacity-80"
+      >
         <h1 className="font-bold text-3xl py-4 text-left">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
@@ -25,23 +44,31 @@ const Login = () => {
           <input
             type="text"
             placeholder="Full Name"
-            className="p-4 my-4 w-full rounded-lg"
+            className="p-4 my-4 w-full rounded-lg text-black"
           />
         )}
         <input
           type="email"
           placeholder="Email adress"
-          className="p-4 my-4 w-full rounded-lg"
+          className="p-4 my-4 w-full rounded-lg text-black"
+          ref={emailRef}
         />
         <input
           type="password"
           placeholder="Password"
-          className="p-4 my-4 w-full rounded-lg"
+          className="p-4 my-4 w-full rounded-lg text-black"
+          ref={passRef}
         />
-        <button className="p-4 my-6 border border-black rounded-lg bg-red-600 w-full">
+        {erroMessage && (
+          <p className="p-2 text-lg text-red-600">{erroMessage}</p>
+        )}
+        <button
+          onClick={handleClick}
+          className="p-4 mt-6 border border-black rounded-lg bg-red-600 w-full"
+        >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-        <p className="py-4 cursor-pointer" onClick={toggleSignInform}>
+        <p className="py-2 cursor-pointer" onClick={toggleSignInform}>
           {isSignInForm
             ? "New to Netflix ? Sign Up"
             : "Already registered, Sign In"}
