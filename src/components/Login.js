@@ -1,11 +1,17 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { validateFormData } from "../utils/validate";
+import { auth } from "../utils/firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [erroMessage, setErrorMessage] = useState(null);
 
+  const nameRef = useRef(null);
   const emailRef = useRef(null);
   const passRef = useRef(null);
 
@@ -17,11 +23,51 @@ const Login = () => {
     //validate form data
     const validationMessage = validateFormData(
       emailRef.current.value,
-      passRef.current.value
+      passRef.current.value,
+      isSignInForm ? null : nameRef.current.value
     );
     setErrorMessage(validationMessage);
 
-    //proceed to signin/signup
+    //if we have some error messege we return in below or else proceed to sigin/signup
+    if (validationMessage) return;
+
+    if (!isSignInForm) {
+      //sign up
+      createUserWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passRef.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorText = error.message;
+          // setErrorMessage(errorCode + "-" + errorText);
+          setErrorMessage("Sorry, couldn't create an account");
+        });
+    } else {
+      //sign in
+      signInWithEmailAndPassword(
+        auth,
+        emailRef.current.value,
+        passRef.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorText = error.message;
+          // setErrorMessage(errorCode + "-" + errorText);
+          setErrorMessage("User not found");
+        });
+    }
   };
 
   return (
@@ -42,6 +88,7 @@ const Login = () => {
         </h1>
         {!isSignInForm && (
           <input
+            ref={nameRef}
             type="text"
             placeholder="Full Name"
             className="p-4 my-4 w-full rounded-lg text-black"
@@ -60,7 +107,7 @@ const Login = () => {
           ref={passRef}
         />
         {erroMessage && (
-          <p className="p-2 text-lg text-red-600">{erroMessage}</p>
+          <p className="p-2 font-bold text-lg text-red-600">{erroMessage}</p>
         )}
         <button
           onClick={handleClick}
