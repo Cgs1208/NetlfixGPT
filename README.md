@@ -14,6 +14,7 @@
 - Redux store with userSlice
 - implemented signout
 - update profile api from firebase
+- BugFix -> if the user is not logged in then redirect /browse to login page & vice versa
 -
 
 # Features

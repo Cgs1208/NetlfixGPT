@@ -7,14 +7,12 @@ import {
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [erroMessage, setErrorMessage] = useState(null);
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const nameRef = useRef(null);
@@ -56,7 +54,6 @@ const Login = () => {
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName })
               );
-              navigate("/browse"); //move user to browse page if he signs up
             })
             .catch((error) => {
               setErrorMessage(error.message);
@@ -81,7 +78,6 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate("/browse"); //move user to browse page if he signs in
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -141,7 +137,7 @@ const Login = () => {
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-        <p className="py-2 cursor-pointer" onClick={toggleSignInform}>
+        <p className="pt-4 mt-1 cursor-pointer" onClick={toggleSignInform}>
           {isSignInForm
             ? "New to Netflix ? Sign Up"
             : "Already registered, Sign In"}
