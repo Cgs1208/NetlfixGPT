@@ -5,11 +5,17 @@ import { auth } from "../utils/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [erroMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const nameRef = useRef(null);
   const emailRef = useRef(null);
@@ -17,6 +23,7 @@ const Login = () => {
 
   const toggleSignInform = () => {
     setIsSignInForm(!isSignInForm);
+    setErrorMessage(null);
   };
 
   const handleClick = () => {
@@ -41,13 +48,28 @@ const Login = () => {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
-          console.log(user);
+          updateProfile(user, {
+            displayName: nameRef.current.value,
+          })
+            .then(() => {
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
+              navigate("/browse"); //move user to browse page if he signs up
+            })
+            .catch((error) => {
+              setErrorMessage(error.message);
+            });
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorText = error.message;
-          // setErrorMessage(errorCode + "-" + errorText);
-          setErrorMessage("Sorry, couldn't create an account");
+
+          const parts = errorText.split("/"); // Split the string by '/'
+          const lastPart = parts[parts.length - 1];
+          const extractedMessage = lastPart.split(").")[0].replace(/-/g, " ");
+          setErrorMessage(extractedMessage);
         });
     } else {
       //sign in
@@ -59,13 +81,17 @@ const Login = () => {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          console.log(user);
+          navigate("/browse"); //move user to browse page if he signs in
         })
         .catch((error) => {
           const errorCode = error.code;
           const errorText = error.message;
-          // setErrorMessage(errorCode + "-" + errorText);
-          setErrorMessage("User not found");
+
+          const parts = errorText.split("/");
+          const lastPart = parts[parts.length - 1];
+          const extractedMessage = lastPart.split(").")[0].replace(/-/g, " ");
+
+          setErrorMessage(extractedMessage);
         });
     }
   };

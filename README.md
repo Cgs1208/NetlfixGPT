@@ -1,7 +1,20 @@
 # Netflix GPT
 
-- app is built with crete-react-app
-- Tailwind Css used
+- App is built with crete-react-app
+- Tailwind Css consfigured
+- Configured React-Router-DOM
+- Header
+- Routing of app
+- Login Form
+- Sign Up form
+- Form validation
+- useRef hook used for form fields
+- Firebase setup
+- signup and signin using firebase authentication
+- Redux store with userSlice
+- implemented signout
+- update profile api from firebase
+-
 
 # Features
 
