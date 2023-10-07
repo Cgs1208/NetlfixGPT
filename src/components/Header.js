@@ -4,12 +4,20 @@ import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
-import { NETFLIX_LOGO, USER_AVATAR } from "../utils/constants";
+import {
+  NETFLIX_LOGO,
+  SUPPORTED_LANGUAGES,
+  Supported_Languages,
+  USER_AVATAR,
+} from "../utils/constants";
+import { toggleGptSearchView } from "../utils/gptSlice";
+import { changeLanguage } from "../utils/configSlice";
 
 function Header() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const isGptSearchPage = useSelector((store) => store.gpt.showGptSearch);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -35,11 +43,38 @@ function Header() {
       });
   };
 
+  const handleGptSearchClick = () => {
+    //Toggle GPT search
+    dispatch(toggleGptSearchView());
+  };
+
+  const handlerLanguageChange = (e) => {
+    dispatch(changeLanguage(e.target.value));
+  };
+
   return (
     <div className="flex justify-between w-full absolute px-8 py-2 bg-gradient-to-b from-black z-10">
       <img src={NETFLIX_LOGO} alt="logo" className="w-44" />
       {user && (
         <div className="flex justify-between">
+          {isGptSearchPage && (
+            <select
+              className="px-2 mx-2 mt-3 h-11 bg-gray-900 text-white rounded-md"
+              onClick={handlerLanguageChange}
+            >
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <option key={lang.identifier} value={lang.identifier}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          )}
+          <button
+            onClick={handleGptSearchClick}
+            className="font-bold text-white bg-orange-400 h-9 px-4 mt-4 mx-2 rounded-md"
+          >
+            {isGptSearchPage ? "Home Page" : "GPT Search"}
+          </button>
           <img
             src={USER_AVATAR}
             alt="user-icon"

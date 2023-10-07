@@ -30,6 +30,8 @@
 - built movie cards
 - TMDB movie image with cdn url
 - usePopularMovie, useTopRatedMovies, useUpcomingMovies custom hook
+- gpt search feature
+- Multi-language for gpt search page
 
 # Features
 
@@ -44,5 +46,14 @@
   - Movie suggestions
     - Movie List \* N (vertically scrollable)
 - Netlfix gpt page
+
   - Search bar
   - Movie suggestions
+
+- BROWSE PAGE
+  - MainContainer
+    - videoBackground (playing)
+    - videoTitle
+  - SecondaryContainer
+    - Movielist \* n (vertical lists)
+    - MovieCards \*n (horizontally)
