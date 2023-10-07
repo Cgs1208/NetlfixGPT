@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import { LOGIN_BACKGROUND } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -96,14 +97,11 @@ const Login = () => {
     <>
       <Header />
       <div className="absolute">
-        <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/893a42ad-6a39-43c2-bbc1-a951ec64ed6d/1d86e0ac-428c-4dfa-9810-5251dbf446f8/IN-en-20231002-popsignuptwoweeks-perspective_alpha_website_large.jpg"
-          alt="login-background"
-        />
+        <img src={LOGIN_BACKGROUND} alt="login-background" />
       </div>
       <form
         onClick={(e) => e.preventDefault()}
-        className="bg-black absolute w-4/12 p-12 mt-28 mx-auto left-0 right-0 text-white rounded-lg bg-opacity-80"
+        className="bg-black absolute w-4/12 p-12 mt-28 mx-auto left-0 right-0 text-white rounded-lg bg-opacity-75"
       >
         <h1 className="font-bold text-3xl py-4 text-left">
           {isSignInForm ? "Sign In" : "Sign Up"}

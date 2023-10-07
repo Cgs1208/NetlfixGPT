@@ -15,7 +15,16 @@
 - implemented signout
 - update profile api from firebase
 - BugFix -> if the user is not logged in then redirect /browse to login page & vice versa
--
+- unsubscribe onAuthStateChange callback
+- register tmdb api , create app , get access token
+- use token to make api calls to tmdb servers
+- custom hook for nowPlayingMovies
+- created movie slice
+- update store with movie list
+- fetch data for trailer video
+- update store with trailer data
+- embedded youtube video trailer
+- added autoplay with mute
 
 # Features
 

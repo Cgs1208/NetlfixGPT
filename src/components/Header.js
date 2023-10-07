@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
+import { NETFLIX_LOGO, USER_AVATAR } from "../utils/constants";
 
 function Header() {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ function Header() {
   const user = useSelector((store) => store.user);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is Signed in/Signed up
         const { uid, email, displayName } = user;
@@ -23,6 +24,7 @@ function Header() {
         navigate("/");
       }
     });
+    return () => unsubscribe();
   }, []);
 
   const handleSingnOut = () => {
@@ -35,15 +37,11 @@ function Header() {
 
   return (
     <div className="flex justify-between w-full absolute px-8 py-2 bg-gradient-to-b from-black z-10">
-      <img
-        src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-        alt="logo"
-        className="w-44"
-      />
+      <img src={NETFLIX_LOGO} alt="logo" className="w-44" />
       {user && (
         <div className="flex justify-between">
           <img
-            src="https://wallpapers.com/images/high/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.webp"
+            src={USER_AVATAR}
             alt="user-icon"
             className="w-9 h-9 mt-4 mr-2 rounded-md"
           />
