@@ -5,7 +5,7 @@ import useMovietrailer from "../hooks/useMovieTrailer";
 const VideoBackground = ({ movieId }) => {
   const trailerKey = useMovietrailer(movieId);
 
-  const youtubeEmbedUrl = `https://www.youtube.com/embed/${trailerKey}?si=AKVpsjrqvw3DOmbL&amp;start=35`;
+  const youtubeEmbedUrl = `https://www.youtube.com/embed/${trailerKey}?si=AKVpsjrqvw3DOmbL&autoplay=1&mute=1`;
 
   return (
     <div>
