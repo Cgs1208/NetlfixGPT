@@ -25,6 +25,11 @@
 - update store with trailer data
 - embedded youtube video trailer
 - added autoplay with mute
+- buuilt secondary container
+- built movie list
+- built movie cards
+- TMDB movie image with cdn url
+- usePopularMovie, useTopRatedMovies, useUpcomingMovies custom hook
 
 # Features
 
