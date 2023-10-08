@@ -24,3 +24,7 @@ export const SUPPORTED_LANGUAGES = [
   { identifier: "hindi", name: "हिन्दी" },
   { identifier: "spanish", name: "española" },
 ];
+
+//key key in a secret place
+export const OPENAPI_KEY =
+  "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";
