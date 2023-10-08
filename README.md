@@ -32,6 +32,10 @@
 - usePopularMovie, useTopRatedMovies, useUpcomingMovies custom hook
 - gpt search feature
 - Multi-language for gpt search page
+- fetched data from search bar in gptSearchBar using openAi api and Tmdb api
+- showing fetched movie lists in gptSearchSuggestions
+- securing keys in .env file
+- memoization for homepage contents to reduce unwanted api calls
 
 # Features
 
