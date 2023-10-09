@@ -1,14 +1,26 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import MovieList from "./MovieList";
+import { addGptMovieResult } from "../utils/gptSlice";
 
 const GptMovieSuggestions = () => {
+  const dispatch = useDispatch();
   const { movieNames, movieResults } = useSelector((store) => store.gpt);
   if (!movieNames) return null;
 
+  const closeList = () => {
+    dispatch(addGptMovieResult({ movieNames: null, movieResults: null }));
+  };
+
   return (
-    <div className="p-4 m-6  bg-black text-white bg-opacity-80">
+    <div className="bg-black bg-opacity-90 fixed h-screen w-full overflow-y-scroll top-0  text-white p-8 z-50">
       <div>
+        <span
+          className=" absolute right-2 top-2 p-5 text-3xl cursor-pointer"
+          onClick={closeList}
+        >
+          X
+        </span>
         {movieNames.map((movieName, index) => (
           <MovieList
             key={movieName}

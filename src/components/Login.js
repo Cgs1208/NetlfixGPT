@@ -108,7 +108,7 @@ const Login = () => {
         onClick={(e) => e.preventDefault()}
         className="bg-black absolute w-9/12 md:w-4/12 p-10 mt-32 md:mt-28 mx-auto left-0 right-0 text-white rounded-lg bg-opacity-75"
       >
-        <h1 className="font-bold text-xl md:text-3xl py-3 md:py-3 text-left">
+        <h1 className="font-bold text-xl md:text-4xl py-3 md:py-3 text-left">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignInForm && (

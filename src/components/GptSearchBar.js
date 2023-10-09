@@ -4,6 +4,7 @@ import lang from "../utils/languageConstants";
 import openai from "../utils/openai";
 import { API_OPTIONS } from "../utils/constants";
 import { addGptMovieResult } from "../utils/gptSlice";
+import { changeLoaderVisibility } from "../utils/loaderSlice";
 
 const GptSearchBar = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ const GptSearchBar = () => {
   };
 
   const handleGptSearchClick = async () => {
+    dispatch(changeLoaderVisibility(true));
     const searchText = searchTextref.current.value;
     //Make an API call to GPT API to get Movie results
 
@@ -47,6 +49,10 @@ const GptSearchBar = () => {
 
     //wait for all Promises to resolve
     const tmdbResults = await Promise.all(promiseArray);
+
+    if (tmdbResults) {
+      dispatch(changeLoaderVisibility(false));
+    }
 
     dispatch(
       addGptMovieResult({ movieNames: gptMovieList, movieResults: tmdbResults })
