@@ -38,6 +38,7 @@
 - memoization for homepage contents to reduce unwanted api calls
 - Responsive design for other devices
 - title and logo change
+- loaderSlice and shimmer UI for gptSearchPage
 
 # Features
 
