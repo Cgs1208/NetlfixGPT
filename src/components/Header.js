@@ -53,13 +53,13 @@ function Header() {
   };
 
   return (
-    <div className="flex justify-between w-full absolute px-8 py-2 bg-gradient-to-b from-black z-10">
-      <img src={NETFLIX_LOGO} alt="logo" className="w-44" />
+    <div className="justify-between w-full absolute px-8 py-2 bg-gradient-to-b from-black z-10 flex flex-col md:flex-row">
+      <img src={NETFLIX_LOGO} alt="logo" className="w-44 mx-auto md:mx-0" />
       {user && (
         <div className="flex justify-between">
           {isGptSearchPage && (
             <select
-              className="px-2 mx-2 mt-3 h-11 bg-gray-900 text-white rounded-md"
+              className="px-2 mx-1 mt-3 h-11 bg-gray-900 text-white rounded-md"
               onClick={handlerLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
@@ -71,18 +71,18 @@ function Header() {
           )}
           <button
             onClick={handleGptSearchClick}
-            className="font-bold text-white bg-orange-400 h-9 px-4 mt-4 mx-2 rounded-md"
+            className="font-bold text-white bg-orange-400 h-auto md:h-9 px-2 md:px-4 py-1 md:py-0 mt-4 mx-2 rounded-md"
           >
             {isGptSearchPage ? "Home Page" : "GPT Search"}
           </button>
           <img
             src={USER_AVATAR}
             alt="user-icon"
-            className="w-9 h-9 mt-4 mr-2 rounded-md"
+            className="hidden md:inline-block w-9 h-9 mt-4 mr-2 rounded-md"
           />
           <button
             onClick={handleSingnOut}
-            className="font-bold text-white bg-red-500 h-9 px-2 mt-4 rounded-md"
+            className="font-bold text-white bg-red-500 h-auto md:h-9 px-2 md:px-4 py-1 md:py-0 mt-4 rounded-md"
           >
             Sign Out
           </button>

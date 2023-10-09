@@ -96,14 +96,19 @@ const Login = () => {
   return (
     <>
       <Header />
-      <div className="absolute">
-        <img src={LOGIN_BACKGROUND} alt="login-background" />
+      <div className="fixed w-full h-full">
+        <img
+          className="w-full h-full object-cover"
+          src={LOGIN_BACKGROUND}
+          alt="login-background"
+        />
       </div>
+
       <form
         onClick={(e) => e.preventDefault()}
-        className="bg-black absolute w-4/12 p-12 mt-28 mx-auto left-0 right-0 text-white rounded-lg bg-opacity-75"
+        className="bg-black absolute w-9/12 md:w-4/12 p-10 mt-32 md:mt-28 mx-auto left-0 right-0 text-white rounded-lg bg-opacity-75"
       >
-        <h1 className="font-bold text-3xl py-4 text-left">
+        <h1 className="font-bold text-xl md:text-3xl py-3 md:py-3 text-left">
           {isSignInForm ? "Sign In" : "Sign Up"}
         </h1>
         {!isSignInForm && (
@@ -111,31 +116,36 @@ const Login = () => {
             ref={nameRef}
             type="text"
             placeholder="Full Name"
-            className="p-4 my-4 w-full rounded-lg text-black"
+            className="p-3 md:p-4 my-3 md:my-4 w-full rounded-lg text-black"
           />
         )}
         <input
           type="email"
           placeholder="Email adress"
-          className="p-4 my-4 w-full rounded-lg text-black"
+          className="p-3 md:p-4 my-3 md:my-4 w-full rounded-lg text-black"
           ref={emailRef}
         />
         <input
           type="password"
           placeholder="Password"
-          className="p-4 my-4 w-full rounded-lg text-black"
+          className="p-3 md:p-4 my-3 md:my-4 w-full rounded-lg text-black"
           ref={passRef}
         />
         {erroMessage && (
-          <p className="p-2 font-bold text-lg text-red-600">{erroMessage}</p>
+          <p className="p-2 md:p-3 font-bold text-lg text-red-600">
+            {erroMessage}
+          </p>
         )}
         <button
           onClick={handleClick}
-          className="p-4 mt-6 border border-black rounded-lg bg-red-600 w-full"
+          className="p-3 md:p-4 mt-3 md:mt-5 border border-black rounded-lg bg-red-600 w-full"
         >
           {isSignInForm ? "Sign In" : "Sign Up"}
         </button>
-        <p className="pt-4 mt-1 cursor-pointer" onClick={toggleSignInform}>
+        <p
+          className="pt-3 md:pt-4 mt-1 md:mt-2 cursor-pointer"
+          onClick={toggleSignInform}
+        >
           {isSignInForm
             ? "New to Netflix ? Sign Up"
             : "Already registered, Sign In"}
