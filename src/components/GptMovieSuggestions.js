@@ -13,10 +13,10 @@ const GptMovieSuggestions = () => {
   };
 
   return (
-    <div className="bg-black bg-opacity-90 fixed h-screen w-full overflow-y-scroll top-0  text-white p-8 z-50">
+    <div className="bg-black bg-opacity-90 fixed h-screen w-full overflow-y-scroll top-0  text-white p-3 md:p-4 z-50">
       <div>
         <span
-          className=" absolute right-2 top-2 p-5 text-3xl cursor-pointer"
+          className="absolute right-2 -top-1 md:top-2 p-5 text-3xl cursor-pointer"
           onClick={closeList}
         >
           X
